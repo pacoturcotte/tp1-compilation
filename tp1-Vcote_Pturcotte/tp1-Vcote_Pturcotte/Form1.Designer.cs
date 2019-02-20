@@ -80,6 +80,7 @@
             this.btnCompiler.TabIndex = 4;
             this.btnCompiler.Text = "Compiler";
             this.btnCompiler.UseVisualStyleBackColor = true;
+            this.btnCompiler.Click += new System.EventHandler(this.btnCompiler_Click);
             // 
             // FrmCompilateur
             // 
