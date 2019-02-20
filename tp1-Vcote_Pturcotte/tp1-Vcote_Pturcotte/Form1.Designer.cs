@@ -94,10 +94,9 @@
             this.Name = "FrmCompilateur";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Super compilateur par Pascal Turcotte et Vincent Côté";
+            this.Load += new System.EventHandler(this.FrmCompilateur_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
-
-            this.ResumeLayout(false);
 
         }
 
