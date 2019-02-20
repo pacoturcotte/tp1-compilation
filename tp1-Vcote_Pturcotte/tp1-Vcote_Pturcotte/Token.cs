@@ -29,7 +29,7 @@ namespace tp1_Vcote_Pturcotte
         // Retourner la valeur, la position et le type du Token
         public override string ToString()
         {
-            return "Token :" + Value + " Position : " + Position + " Type : " + Type;
+            return "{ Token : " + Value + " } { Type : " + Type + " } { "+ Position + " }";
         }
     }
 }

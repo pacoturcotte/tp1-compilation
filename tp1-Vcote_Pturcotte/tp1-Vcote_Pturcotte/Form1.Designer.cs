@@ -30,7 +30,7 @@
         {
             this.lblNomFichier = new System.Windows.Forms.Label();
             this.btnChoisirFichier = new System.Windows.Forms.Button();
-            this.lstErreurs = new System.Windows.Forms.ListBox();
+            this.lbErreurs = new System.Windows.Forms.ListBox();
             this.lblTitreInfos = new System.Windows.Forms.Label();
             this.btnCompiler = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -54,13 +54,13 @@
             this.btnChoisirFichier.UseVisualStyleBackColor = true;
             this.btnChoisirFichier.Click += new System.EventHandler(this.btnChoisirFichier_Click);
             // 
-            // lstErreurs
+            // lbErreurs
             // 
-            this.lstErreurs.FormattingEnabled = true;
-            this.lstErreurs.Location = new System.Drawing.Point(12, 122);
-            this.lstErreurs.Name = "lstErreurs";
-            this.lstErreurs.Size = new System.Drawing.Size(524, 160);
-            this.lstErreurs.TabIndex = 2;
+            this.lbErreurs.FormattingEnabled = true;
+            this.lbErreurs.Location = new System.Drawing.Point(12, 122);
+            this.lbErreurs.Name = "lbErreurs";
+            this.lbErreurs.Size = new System.Drawing.Size(524, 160);
+            this.lbErreurs.TabIndex = 2;
             // 
             // lblTitreInfos
             // 
@@ -89,7 +89,7 @@
             this.ClientSize = new System.Drawing.Size(548, 294);
             this.Controls.Add(this.btnCompiler);
             this.Controls.Add(this.lblTitreInfos);
-            this.Controls.Add(this.lstErreurs);
+            this.Controls.Add(this.lbErreurs);
             this.Controls.Add(this.btnChoisirFichier);
             this.Controls.Add(this.lblNomFichier);
             this.Name = "FrmCompilateur";
@@ -104,7 +104,7 @@
         #endregion
         private System.Windows.Forms.Label lblNomFichier;
         private System.Windows.Forms.Button btnChoisirFichier;
-        private System.Windows.Forms.ListBox lstErreurs;
+        private System.Windows.Forms.ListBox lbErreurs;
         private System.Windows.Forms.Label lblTitreInfos;
         private System.Windows.Forms.Button btnCompiler;
     }

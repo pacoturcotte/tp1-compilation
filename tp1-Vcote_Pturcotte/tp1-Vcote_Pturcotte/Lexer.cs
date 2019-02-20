@@ -57,12 +57,13 @@ namespace tp1_Vcote_Pturcotte
                     {
                         matchedDefinition = rule;
                         matchLength = match.Length;
+                        break;
                     }
                 }
 
-                if (matchedDefinition == null)
-                    throw new UnrecognizedTokenException(source[index], new TokenPosition(index, line, column),
-                        $"Unrecognized symbol '{source[index]}' at index {index} (line {line}, column {column})");
+                //if (matchedDefinition == null)
+                //    throw new UnrecognizedTokenException(source[index], new TokenPosition(index, line, column),
+                //        $"Unrecognized symbol '{source[index]}' at index {index} (line {line}, column {column})");
 
                 var value = source.Substring(index, matchLength);
 
