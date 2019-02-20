@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace tp1_Vcote_Pturcotte
 {
@@ -12,12 +13,17 @@ namespace tp1_Vcote_Pturcotte
         public const string Whitespace = "Whitespace";
         private List<TokenDefinition> _definitions = new List<TokenDefinition>();
         private static Regex _whiteSpace = new Regex($@"((\r|\t|\v|\f| )*(?<NewLine>({Environment.NewLine}|\n)+)?)+", RegexOptions.Compiled);
+        public Form FrmCompilateur;
 
         public Lexer()
         {
 
         }
 
+        public Lexer(FrmCompilateur pFrmCompilateur)
+        {
+            FrmCompilateur = pFrmCompilateur;
+        }
         //Constructeur de lexer, on lui envoie une liste d'enumerables de type TokenDefinition
         public Lexer(IEnumerable<TokenDefinition> definitions)
         {
@@ -61,36 +67,43 @@ namespace tp1_Vcote_Pturcotte
                     }
                 }
 
+                if (matchedDefinition == null)
+                {
+                    FrmCompilateur frmTemp = (FrmCompilateur)FrmCompilateur;
+                    frmTemp.ShowError("Erreur à l'index " + index + ", ligne " + line + ", colonne " + column + ", châine en conflit : " + source[index]);
+                    break;
+                }
+
                 //if (matchedDefinition == null)
                 //    throw new UnrecognizedTokenException(source[index], new TokenPosition(index, line, column),
                 //        $"Unrecognized symbol '{source[index]}' at index {index} (line {line}, column {column})");
 
                 var value = source.Substring(index, matchLength);
-
-                if (!matchedDefinition.IsIgnored)
-                    yield return new Token(matchedDefinition.Type, value, new TokenPosition(index, line, column));
-
-                var whitespace = _whiteSpace.Match(source, index + matchLength);
-
-                if (whitespace.Success && whitespace.Length > 0)
-                {
-                    if (!ignoreWhitespace)
-                        yield return new Token("Whitespace", whitespace.Value, new TokenPosition(whitespace.Index, line, column + matchLength));
-
-                    matchLength += whitespace.Length;
-                    var newLines = whitespace.Groups["NewLine"];
-                    if (newLines.Success)
-                    {
-                        line += newLines.Captures.Count;
-                        column = whitespace.Length - (whitespace.Value.LastIndexOf(newLines.Value) + 1);
-                    }
-                    else
-                        column += matchLength;
-                }
-                else
-                    column += matchLength;
-
-                index += matchLength;
+             
+              if (!matchedDefinition.IsIgnored)
+                  yield return new Token(matchedDefinition.Type, value, new TokenPosition(index, line, column));
+             
+              var whitespace = _whiteSpace.Match(source, index + matchLength);
+             
+              if (whitespace.Success && whitespace.Length > 0)
+              {
+                  if (!ignoreWhitespace)
+                      yield return new Token("Whitespace", whitespace.Value, new TokenPosition(whitespace.Index, line, column + matchLength));
+             
+                  matchLength += whitespace.Length;
+                  var newLines = whitespace.Groups["NewLine"];
+                  if (newLines.Success)
+                  {
+                      line += newLines.Captures.Count;
+                      column = whitespace.Length - (whitespace.Value.LastIndexOf(newLines.Value) + 1);
+                  }
+                  else
+                      column += matchLength;
+              }
+              else
+                  column += matchLength;
+             
+              index += matchLength;
             }
 
             yield return new Token(EoF, null, new TokenPosition(index, line, column));

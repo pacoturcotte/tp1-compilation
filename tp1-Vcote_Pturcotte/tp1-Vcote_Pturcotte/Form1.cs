@@ -56,7 +56,8 @@ namespace tp1_Vcote_Pturcotte
         private void btnCompiler_Click(object sender, EventArgs e)
         {
             // Ajout des définitions dans le Lexer
-            var lexer = new Lexer();
+            FrmCompilateur frmCompilateur = this;
+            var lexer = new Lexer(frmCompilateur);
             lexer.AddDefinition(new TokenDefinition(@"(int|float|char|string|bool)", "Declaration"));
             lexer.AddDefinition(new TokenDefinition(@"[a-zA-Z]{1}\w*[a-zA-Z]{1}|[a-zA-Z]{1}", "Identificateur"));
             lexer.AddDefinition(new TokenDefinition(@"if", "Condition"));
@@ -69,6 +70,11 @@ namespace tp1_Vcote_Pturcotte
             {
                 lbErreurs.Items.Add(token.ToString() + "\n");
             }
+        }
+
+        public void ShowError(string pErreur)
+        {
+            lbErreurs.Items.Add(pErreur);
         }
     }
 }

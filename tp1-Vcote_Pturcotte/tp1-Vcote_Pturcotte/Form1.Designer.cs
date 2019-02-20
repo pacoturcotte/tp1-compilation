@@ -38,9 +38,10 @@
             // lblNomFichier
             // 
             this.lblNomFichier.AutoSize = true;
-            this.lblNomFichier.Location = new System.Drawing.Point(123, 17);
+            this.lblNomFichier.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNomFichier.Location = new System.Drawing.Point(121, 15);
             this.lblNomFichier.Name = "lblNomFichier";
-            this.lblNomFichier.Size = new System.Drawing.Size(126, 13);
+            this.lblNomFichier.Size = new System.Drawing.Size(155, 16);
             this.lblNomFichier.TabIndex = 0;
             this.lblNomFichier.Text = "Aucun fichier sélectionné";
             // 
@@ -65,10 +66,10 @@
             // lblTitreInfos
             // 
             this.lblTitreInfos.AutoSize = true;
-            this.lblTitreInfos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitreInfos.Location = new System.Drawing.Point(12, 100);
+            this.lblTitreInfos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitreInfos.Location = new System.Drawing.Point(9, 98);
             this.lblTitreInfos.Name = "lblTitreInfos";
-            this.lblTitreInfos.Size = new System.Drawing.Size(187, 16);
+            this.lblTitreInfos.Size = new System.Drawing.Size(224, 20);
             this.lblTitreInfos.TabIndex = 3;
             this.lblTitreInfos.Text = "Informations sur la compilation";
             // 
