@@ -59,17 +59,17 @@ namespace tp1_Vcote_Pturcotte
             FrmCompilateur frmCompilateur = this;
             var lexer = new Lexer(frmCompilateur);
             lexer.AddDefinition(new TokenDefinition(@"(int|float|char|string|bool)", "Declaration"));
-            lexer.AddDefinition(new TokenDefinition(@"[a-zA-Z]{1}\w*[a-zA-Z]{1}|[a-zA-Z]{1}", "Identificateur"));
+            lexer.AddDefinition(new TokenDefinition(@"[a-zA-Z]\w*[a-zA-Z]|^[a-zA-Z]", "Identificateur"));
             lexer.AddDefinition(new TokenDefinition(@"if", "Condition"));
-            lexer.AddDefinition(new TokenDefinition(@"\=\=|\!\=|\<|\>|\=", "Operateur"));
             lexer.AddDefinition(new TokenDefinition(@"for", "Boucle"));
+            lexer.AddDefinition(new TokenDefinition(@"(true|false|TRUE|FALSE)", "Booleen"));
+            lexer.AddDefinition(new TokenDefinition(@"==|!=|<|>|=", "Operateur"));
             lexer.AddDefinition(new TokenDefinition(@"[-+]?[0-9]+", "Entier"));
             lexer.AddDefinition(new TokenDefinition(@"[-+]?([0-9]+|[0-9]*\.[0-9]+)", "Reel"));
-       //   lexer.AddDefinition(new TokenDefinition(@"[^""\\\r\n]*(?:\\.[^""\\\r\n]*)*", "Chaine de caracteres")); // Regex de string pris ici -> https://www.regular-expressions.info/examplesprogrammer.html
             lexer.AddDefinition(new TokenDefinition(@"\"".*\""", "Chaine de caracteres"));
-            lexer.AddDefinition(new TokenDefinition(@"\'\w?\'", "Caractere"));
-            lexer.AddDefinition(new TokenDefinition(@"(true|false|TRUE|FALSE)", "Booleen"));
-            lexer.AddDefinition(new TokenDefinition(@";", "Point-Virgule"));
+            lexer.AddDefinition(new TokenDefinition(@"'\.?'", "Caractere"));
+            
+            lexer.AddDefinition(new TokenDefinition(@"(;|\(|\)|\{|\})", "Terminaux"));
 
             foreach (var token in lexer.Tokenize(fileContent, true))
             {
