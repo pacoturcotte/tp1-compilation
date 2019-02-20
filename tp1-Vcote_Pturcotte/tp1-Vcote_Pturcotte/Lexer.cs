@@ -71,7 +71,7 @@ namespace tp1_Vcote_Pturcotte
                 {
                     FrmCompilateur frmTemp = (FrmCompilateur)FrmCompilateur;
                     frmTemp.ShowError("Erreur à l'index " + index + ", ligne " + line + ", colonne " + column + ", châine en conflit : " + source[index]);
-                    break;
+                    index++;
                 }
 
                 //if (matchedDefinition == null)
@@ -80,8 +80,8 @@ namespace tp1_Vcote_Pturcotte
 
                 var value = source.Substring(index, matchLength);
              
-              if (!matchedDefinition.IsIgnored)
-                  yield return new Token(matchedDefinition.Type, value, new TokenPosition(index, line, column));
+             if (matchedDefinition != null && !matchedDefinition.IsIgnored)
+                 yield return new Token(matchedDefinition.Type, value, new TokenPosition(index, line, column));
              
               var whitespace = _whiteSpace.Match(source, index + matchLength);
              
