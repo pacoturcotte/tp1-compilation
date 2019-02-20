@@ -62,8 +62,10 @@ namespace tp1_Vcote_Pturcotte
             lexer.AddDefinition(new TokenDefinition(@"if", "Condition"));
             lexer.AddDefinition(new TokenDefinition(@"\=\=|\!\=|\<|\>|\=", "Operateur"));
             lexer.AddDefinition(new TokenDefinition(@"for", "Boucle"));
+            lexer.AddDefinition(new TokenDefinition(@"\;", "Point-Virgule"));
+            lexer.AddDefinition(new TokenDefinition(@"[0-9]+", "Entier"));
 
-            foreach(var token in lexer.Tokenize(fileContent, true))
+            foreach (var token in lexer.Tokenize(fileContent, true))
             {
                 lbErreurs.Items.Add(token.ToString() + "\n");
             }
