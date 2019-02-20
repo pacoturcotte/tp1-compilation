@@ -20,6 +20,11 @@ namespace tp1_Vcote_Pturcotte
         // Le type du token
         public string Type { get; set; }
 
+        public TokenDefinition(string regex, string type)
+            : this(new Regex(regex), type, false)
+        { }
+
+
         // Constructeur pour définir un token selon son regex et son type
         public TokenDefinition(string regex, string type, bool isIgnored)
             : this(new Regex(regex), type, isIgnored)
