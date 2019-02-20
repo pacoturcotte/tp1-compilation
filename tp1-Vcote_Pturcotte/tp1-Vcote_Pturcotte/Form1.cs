@@ -43,5 +43,17 @@ namespace tp1_Vcote_Pturcotte
                 }
             }
         }
+
+        private void FrmCompilateur_Load(object sender, EventArgs e)
+        {
+            var defs = new TokenDefinition[]
+                {
+                    new TokenDefinition(@"(int|float|char|string|bool)", "Declaration"),
+                    new TokenDefinition(@"^[a-zA-Z]([a-zA-Z0-9])*[a-zA-Z]", "Identificateur"),
+                    new TokenDefinition(@"if", "Condition"),
+                    new TokenDefinition(@"\=\=|\!\=|\<|\>", "Operateur"),
+                    new TokenDefinition(@"for", "Boucle")
+                };
+        }
     }
 }
