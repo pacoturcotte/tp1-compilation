@@ -57,15 +57,17 @@ namespace tp1_Vcote_Pturcotte
         {
             // Ajout des définitions dans le Lexer
             var lexer = new Lexer();
-            lexer.AddDefinition(new TokenDefinition(@"(int|float|char|string|bool)$", "Declaration"));
+            lexer.AddDefinition(new TokenDefinition(@"(int|float|char|string|bool)", "Declaration"));
             lexer.AddDefinition(new TokenDefinition(@"[a-zA-Z]{1}\w*[a-zA-Z]{1}|[a-zA-Z]{1}", "Identificateur"));
             lexer.AddDefinition(new TokenDefinition(@"if", "Condition"));
-            lexer.AddDefinition(new TokenDefinition(@"\=\=|\!\=|\<|\>", "Operateur"));
+            lexer.AddDefinition(new TokenDefinition(@"\=\=|\!\=|\<|\>|\=", "Operateur"));
             lexer.AddDefinition(new TokenDefinition(@"for", "Boucle"));
+            lexer.AddDefinition(new TokenDefinition(@"\;", "Point-Virgule"));
+            lexer.AddDefinition(new TokenDefinition(@"^[0-9]+$", "Entier"));
 
-            foreach(var token in lexer.Tokenize(fileContent, true))
+            foreach (var token in lexer.Tokenize(fileContent, true))
             {
-                lstErreurs.Text += token.ToString();
+                lstErreurs.Items.Add(token.ToString());
             }
         }
     }
