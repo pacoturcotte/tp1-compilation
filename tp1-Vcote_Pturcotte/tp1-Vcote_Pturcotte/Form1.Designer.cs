@@ -31,15 +31,16 @@
             this.lblNomFichier = new System.Windows.Forms.Label();
             this.btnChoisirFichier = new System.Windows.Forms.Button();
             this.lbErreurs = new System.Windows.Forms.ListBox();
-            this.lblTitreInfos = new System.Windows.Forms.Label();
             this.btnCompiler = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblNomFichier
             // 
             this.lblNomFichier.AutoSize = true;
             this.lblNomFichier.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNomFichier.Location = new System.Drawing.Point(121, 15);
+            this.lblNomFichier.Location = new System.Drawing.Point(122, 31);
             this.lblNomFichier.Name = "lblNomFichier";
             this.lblNomFichier.Size = new System.Drawing.Size(155, 16);
             this.lblNomFichier.TabIndex = 0;
@@ -47,7 +48,7 @@
             // 
             // btnChoisirFichier
             // 
-            this.btnChoisirFichier.Location = new System.Drawing.Point(12, 12);
+            this.btnChoisirFichier.Location = new System.Drawing.Point(13, 28);
             this.btnChoisirFichier.Name = "btnChoisirFichier";
             this.btnChoisirFichier.Size = new System.Drawing.Size(105, 23);
             this.btnChoisirFichier.TabIndex = 1;
@@ -58,45 +59,48 @@
             // lbErreurs
             // 
             this.lbErreurs.FormattingEnabled = true;
-            this.lbErreurs.Location = new System.Drawing.Point(12, 122);
+            this.lbErreurs.HorizontalScrollbar = true;
+            this.lbErreurs.ItemHeight = 16;
+            this.lbErreurs.Location = new System.Drawing.Point(6, 19);
             this.lbErreurs.Name = "lbErreurs";
-            this.lbErreurs.Size = new System.Drawing.Size(524, 160);
+            this.lbErreurs.Size = new System.Drawing.Size(634, 324);
             this.lbErreurs.TabIndex = 2;
-            // 
-            // lblTitreInfos
-            // 
-            this.lblTitreInfos.AutoSize = true;
-            this.lblTitreInfos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitreInfos.Location = new System.Drawing.Point(9, 98);
-            this.lblTitreInfos.Name = "lblTitreInfos";
-            this.lblTitreInfos.Size = new System.Drawing.Size(224, 20);
-            this.lblTitreInfos.TabIndex = 3;
-            this.lblTitreInfos.Text = "Informations sur la compilation";
             // 
             // btnCompiler
             // 
-            this.btnCompiler.Location = new System.Drawing.Point(12, 50);
+            this.btnCompiler.Location = new System.Drawing.Point(535, 18);
             this.btnCompiler.Name = "btnCompiler";
-            this.btnCompiler.Size = new System.Drawing.Size(75, 23);
+            this.btnCompiler.Size = new System.Drawing.Size(117, 42);
             this.btnCompiler.TabIndex = 4;
             this.btnCompiler.Text = "Compiler";
             this.btnCompiler.UseVisualStyleBackColor = true;
             this.btnCompiler.Click += new System.EventHandler(this.btnCompiler_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lbErreurs);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(12, 66);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(646, 355);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Informations sur la compilation";
+            // 
             // FrmCompilateur
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(548, 294);
+            this.ClientSize = new System.Drawing.Size(670, 429);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCompiler);
-            this.Controls.Add(this.lblTitreInfos);
-            this.Controls.Add(this.lbErreurs);
             this.Controls.Add(this.btnChoisirFichier);
             this.Controls.Add(this.lblNomFichier);
             this.Name = "FrmCompilateur";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Super compilateur par Pascal Turcotte et Vincent Côté";
             this.Load += new System.EventHandler(this.FrmCompilateur_Load);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -106,8 +110,8 @@
         private System.Windows.Forms.Label lblNomFichier;
         private System.Windows.Forms.Button btnChoisirFichier;
         private System.Windows.Forms.ListBox lbErreurs;
-        private System.Windows.Forms.Label lblTitreInfos;
         private System.Windows.Forms.Button btnCompiler;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 
