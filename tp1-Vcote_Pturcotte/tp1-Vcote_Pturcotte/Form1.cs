@@ -58,7 +58,7 @@ namespace tp1_Vcote_Pturcotte
             // Ajout des définitions dans le Lexer
             var lexer = new Lexer();
             lexer.AddDefinition(new TokenDefinition(@"(int|float|char|string|bool)$", "Declaration"));
-            lexer.AddDefinition(new TokenDefinition(@"(^[a-zA-Z]([a-zA-Z0-9])*) | [a-zA-Z]", "Identificateur"));
+            lexer.AddDefinition(new TokenDefinition(@"[a-zA-Z]{1}\w*[a-zA-Z]{1}|[a-zA-Z]{1}", "Identificateur"));
             lexer.AddDefinition(new TokenDefinition(@"if", "Condition"));
             lexer.AddDefinition(new TokenDefinition(@"\=\=|\!\=|\<|\>", "Operateur"));
             lexer.AddDefinition(new TokenDefinition(@"for", "Boucle"));
