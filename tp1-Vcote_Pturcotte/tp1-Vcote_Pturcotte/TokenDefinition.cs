@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace tp1_Vcote_Pturcotte
 {
-    // Classe implémentée à l'aide du projet github suivant : https://github.com/mystborn/Lexer/blob/master/Myst.LexicalAnalysis/TokenDefinition.cs
+    // Classe implémentée à l'aide du projet github suivant : https://github.com/mystborn/Lexer/blob/master/Myst.LexicalAnalysis/TokenDefinition.cs (Auteur : mystborn)
 
     // Cette classe permet de définir un Token. 
     public class TokenDefinition
