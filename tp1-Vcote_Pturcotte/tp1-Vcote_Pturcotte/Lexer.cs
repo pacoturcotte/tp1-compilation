@@ -44,12 +44,12 @@ namespace tp1_Vcote_Pturcotte
             _definitions.Add(definition);
         }
 
-        public IEnumerable<Token> Tokenize(string source, bool ignoreWhitespace = true)
+        public IEnumerable<Token> Tokenize(string source, bool ignoreWhitespace = false)
         {
             int index = 0;
             int line = 1;
             int column = 0;
-
+            var oldMatch = "";
             while (index < source.Length)
             {
                 TokenDefinition matchedDefinition = null;
@@ -59,12 +59,51 @@ namespace tp1_Vcote_Pturcotte
                 {
                     var match = rule.Regex.Match(source, index);
 
+                    if (rule.Type == "Identificateur" &&_definitions[5].Regex.Match(source, index+1).Value != "")
+                    {
+                        break;
+                    }
+
+                    //CODE DLA MOR KITU
+                 //   if (rule.Type == "Identificateur")
+                 //   {
+                 //       bool result = true;
+                 //       string strToTest = "";
+                 //       int indexTempo = 1;
+                 //       var previousVal = source.Substring(index, indexTempo);
+                 //       while (result)
+                 //       {
+                 //           //var value = source.Substring(index, matchLength);
+                 //           strToTest = source.Substring(index, indexTempo);
+                 //           if ((previousVal != "")/* && (_definitions[1].Regex.Match(strToTest)).Value != previousVal*/)
+                 //           {
+                 //               matchedDefinition = rule;
+                 //               matchLength = match.Length;
+                 //               previousVal = _definitions[1].Regex.Match(strToTest).Value;
+                 //               //result = false;
+                 //           }
+                 //           else
+                 //           {
+                 //               result = false;
+                 //           }
+                 //           indexTempo++;
+                 //       }
+                 //   }
+                    
+
+
+
+
+
+
                     if (match.Success && match.Index - index == 0 && match.Length > matchLength)
                     {
                         matchedDefinition = rule;
                         matchLength = match.Length;
+                        oldMatch = match.Value;
                         break;
                     }
+                    
                 }
 
                 if (matchedDefinition == null)

@@ -59,18 +59,20 @@ namespace tp1_Vcote_Pturcotte
             FrmCompilateur frmCompilateur = this;
             var lexer = new Lexer(frmCompilateur);
             lexer.AddDefinition(new TokenDefinition(@"(int|float|char|string|bool)", "Declaration"));
-            lexer.AddDefinition(new TokenDefinition(@"[a-zA-Z]\w*[a-zA-Z]|^[a-zA-Z]", "Identificateur"));
+
             lexer.AddDefinition(new TokenDefinition(@"if", "Condition"));
             lexer.AddDefinition(new TokenDefinition(@"for", "Boucle"));
             lexer.AddDefinition(new TokenDefinition(@"(true|false|TRUE|FALSE)", "Booleen"));
             lexer.AddDefinition(new TokenDefinition(@"==|!=|<|>|=", "Operateur"));
-            lexer.AddDefinition(new TokenDefinition(@"[-+]?[0-9]+", "Entier"));
+            //lexer.AddDefinition(new TokenDefinition(@"\^[0-9]+", "Entier"));
+            lexer.AddDefinition(new TokenDefinition(@"[0-9][0-9]*", "Entier"));
             lexer.AddDefinition(new TokenDefinition(@"[-+]?([0-9]+|[0-9]*\.[0-9]+)", "Reel"));
             lexer.AddDefinition(new TokenDefinition(@"\"".*\""", "Chaine de caracteres"));
             lexer.AddDefinition(new TokenDefinition(@"'\.?'", "Caractere"));
             
             lexer.AddDefinition(new TokenDefinition(@"(;|\(|\)|\{|\})", "Terminaux"));
 
+            lexer.AddDefinition(new TokenDefinition(@"[a-zA-Z]\w*[a-zA-Z]|[a-zA-Z]", "Identificateur"));
             foreach (var token in lexer.Tokenize(fileContent, true))
             {
                 lbErreurs.Items.Add(token.ToString() + "\n");
