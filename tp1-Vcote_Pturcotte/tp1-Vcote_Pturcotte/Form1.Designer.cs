@@ -33,7 +33,15 @@
             this.lbErreurs = new System.Windows.Forms.ListBox();
             this.btnCompiler = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dgvSymbolTabel = new System.Windows.Forms.DataGridView();
+            this.identicateur = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.size = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.adress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSymbolTabel)).BeginInit();
             this.SuspendLayout();
             // 
             // lblNomFichier
@@ -87,11 +95,61 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Informations sur la compilation";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.dgvSymbolTabel);
+            this.groupBox2.Location = new System.Drawing.Point(706, 75);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(501, 333);
+            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Table des symboles";
+            // 
+            // dgvSymbolTabel
+            // 
+            this.dgvSymbolTabel.AllowUserToAddRows = false;
+            this.dgvSymbolTabel.AllowUserToDeleteRows = false;
+            this.dgvSymbolTabel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSymbolTabel.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.identicateur,
+            this.type,
+            this.size,
+            this.adress});
+            this.dgvSymbolTabel.Location = new System.Drawing.Point(27, 20);
+            this.dgvSymbolTabel.Name = "dgvSymbolTabel";
+            this.dgvSymbolTabel.Size = new System.Drawing.Size(445, 282);
+            this.dgvSymbolTabel.TabIndex = 0;
+            // 
+            // identicateur
+            // 
+            this.identicateur.HeaderText = "Identificateur";
+            this.identicateur.Name = "identicateur";
+            this.identicateur.ReadOnly = true;
+            // 
+            // type
+            // 
+            this.type.HeaderText = "Type";
+            this.type.Name = "type";
+            this.type.ReadOnly = true;
+            // 
+            // size
+            // 
+            this.size.HeaderText = "Taille";
+            this.size.Name = "size";
+            this.size.ReadOnly = true;
+            // 
+            // adress
+            // 
+            this.adress.HeaderText = "Adresse";
+            this.adress.Name = "adress";
+            this.adress.ReadOnly = true;
+            // 
             // FrmCompilateur
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(667, 439);
+            this.ClientSize = new System.Drawing.Size(1237, 451);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCompiler);
             this.Controls.Add(this.btnChoisirFichier);
@@ -101,6 +159,8 @@
             this.Text = "Super compilateur par Pascal Turcotte et Vincent Côté";
             this.Load += new System.EventHandler(this.FrmCompilateur_Load);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSymbolTabel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -112,6 +172,12 @@
         private System.Windows.Forms.ListBox lbErreurs;
         private System.Windows.Forms.Button btnCompiler;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.DataGridView dgvSymbolTabel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn identicateur;
+        private System.Windows.Forms.DataGridViewTextBoxColumn type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn size;
+        private System.Windows.Forms.DataGridViewTextBoxColumn adress;
     }
 }
 
