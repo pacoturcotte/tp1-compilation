@@ -46,12 +46,7 @@ namespace tp1_Vcote_Pturcotte
 
         public IEnumerable<Token> Tokenize(string source, bool ignoreWhitespace = false)
         {
-
-
-            int index = 0;
-            int line = 1;
-            int column = 0;
-            // string[] splited = source.Split(';', ' ');
+            int index = 1;
             char[] delimiters = new char[] {' ', '\n', '\r' };
             List<string> splited = source.Split(delimiters, StringSplitOptions.RemoveEmptyEntries).ToList();
             var i = 0;
@@ -59,7 +54,7 @@ namespace tp1_Vcote_Pturcotte
             {
                 TokenDefinition matchedDefinition = null;
                 int matchLength = 0;
-
+                //Pour chaque règle, on vérifie si le règle match avec la chaîne actuelle
                 foreach (var rule in _definitions)
                 {
                     string strToTest = splited[i];
@@ -73,20 +68,24 @@ namespace tp1_Vcote_Pturcotte
                     if (match.Success)
                     {
                         matchedDefinition = rule;
-                        matchLength = match.Length +1;
+                        matchLength = match.Length+1;
+                        //Si c'est un terminaux on enlève 1, car il ny a pas d'espace entre le terminaux et la chaîne avant
                         if (rule.Type == "Terminaux")
                         {
+                            index--;
                             matchLength--;
                         }
                         break;
                     }
                 }
 
+
+                //Si aucun des regex ne match
                 if (matchedDefinition == null)
                 {
                     FrmCompilateur frmTemp = (FrmCompilateur)FrmCompilateur;
                     frmTemp.ShowError("Erreur à l'index " + index + ", châine en conflit : " + splited[i]);
-                    index++;
+                    index += splited[i].Length + 1;
                 }
                 else
                 {
@@ -94,36 +93,6 @@ namespace tp1_Vcote_Pturcotte
                 }
 
                 index += matchLength;
-                //if (matchedDefinition == null)
-                //    throw new UnrecognizedTokenException(source[index], new TokenPosition(index, line, column),
-                //        $"Unrecognized symbol '{source[index]}' at index {index} (line {line}, column {column})");
-
-          //     var value = source.Substring(index, matchLength);
-          //  
-          //  if (matchedDefinition != null && !matchedDefinition.IsIgnored)
-          //      yield return new Token(matchedDefinition.Type, value, new TokenPosition(index, line, column));
-          //  
-          //   var whitespace = _whiteSpace.Match(source, index + matchLength);
-          //  
-          //   if (whitespace.Success && whitespace.Length > 0)
-          //   {
-          //       if (!ignoreWhitespace)
-          //           yield return new Token("Whitespace", whitespace.Value, new TokenPosition(whitespace.Index, line, column + matchLength));
-          //  
-          //       matchLength += whitespace.Length;
-          //       var newLines = whitespace.Groups["NewLine"];
-          //       if (newLines.Success)
-          //       {
-          //           line += newLines.Captures.Count;
-          //           column = whitespace.Length - (whitespace.Value.LastIndexOf(newLines.Value) + 1);
-          //       }
-          //       else
-          //           column += matchLength;
-          //   }
-          //   else
-          //       column += matchLength;
-          //  
-          //   index += matchLength;
                 i++;
             }
 
