@@ -73,15 +73,15 @@ namespace tp1_Vcote_Pturcotte
             FrmCompilateur frmCompilateur = this;
             var lexer = new Lexer(frmCompilateur);
             lexer.AddDefinition(new TokenDefinition(@"(^int$|^float$|^char$|^string$|^bool$)", "Declaration"));
-            lexer.AddDefinition(new TokenDefinition(@"if", "Condition"));
-            lexer.AddDefinition(new TokenDefinition(@"for", "Boucle"));
-            lexer.AddDefinition(new TokenDefinition(@"(true|false|TRUE|FALSE)", "Booleen"));
-            lexer.AddDefinition(new TokenDefinition(@"==|!=|<|>|=", "Operateur"));
-            lexer.AddDefinition(new TokenDefinition(@"^[0-9]+", "Entier"));
-            lexer.AddDefinition(new TokenDefinition(@"^[-+]?([0-9]+|[0-9]*\.[0-9]+)", "Reel"));
+            lexer.AddDefinition(new TokenDefinition(@"^if$", "Condition"));
+            lexer.AddDefinition(new TokenDefinition(@"^for$", "Boucle"));
+            lexer.AddDefinition(new TokenDefinition(@"(^true$|^false$|^TRUE$|^FALSE$)", "Booleen"));
+            lexer.AddDefinition(new TokenDefinition(@"^==$|^!=$|^<$|^>$|^=$", "Operateur"));
+            lexer.AddDefinition(new TokenDefinition(@"^[0-9]+$", "Entier"));
+            lexer.AddDefinition(new TokenDefinition(@"^[-+]?([0-9]+|[0-9]*\.[0-9]+)$", "Reel"));
             lexer.AddDefinition(new TokenDefinition(@"^\"".*\""$", "Chaine de caracteres"));
-            lexer.AddDefinition(new TokenDefinition(@"'\.?'", "Caractere"));        
-            lexer.AddDefinition(new TokenDefinition(@"(;|\(|\)|\{|\})", "Terminaux"));
+            lexer.AddDefinition(new TokenDefinition(@"^'\.?'$", "Caractere"));        
+            lexer.AddDefinition(new TokenDefinition(@"(^;$|^\($|^\)$|^\{$|^\}$)", "Terminaux"));
             lexer.AddDefinition(new TokenDefinition(@"^[a-zA-Z]\w*[a-zA-Z]$|^[a-zA-Z]$", "Identificateur"));
 
             // Affichage de l'analyse lexicale
@@ -93,23 +93,30 @@ namespace tp1_Vcote_Pturcotte
             RemplirTableSymbole(tokenList, dictTableSymbole);
         }
 
+
+        // Sert à remplir la table des symboles
         public void RemplirTableSymbole(List<Token> listToken, Dictionary<string, int> dict)
         {
-            for (int i = 1; i<=listToken.Count(); i++)
+            for (int i = 1; i < listToken.Count() -1; i++)
             {
-                if (listToken[i-1].Type == "Declaration" && listToken[i].Type == "Identificateur" && listToken[i-1].Value == "string")
+                bool existant = VerifierIdentificateurExistant(listToken, listToken[i].Value.ToString());
+                if (!existant)
                 {
-                    adresse = CalculAdresse(listToken, dict, i - 1);
-                    dgvSymbolTable.Rows.Add(listToken[i].Value.ToString(), listToken[i - 1].Value.ToString(), TrouverTailleTypeString(listToken, dict, i-1), adresse.ToString());
-                }
-                else if (listToken[i - 1].Type == "Declaration" && listToken[i].Type == "Identificateur")
-                {
-                    adresse = CalculAdresse(listToken, dict, i - 1);
-                    dgvSymbolTable.Rows.Add(listToken[i].Value.ToString(), listToken[i - 1].Value.ToString(), TrouverTailleType(listToken[i-1], dict), adresse.ToString());
+                    if (listToken[i - 1].Type == "Declaration" && listToken[i].Type == "Identificateur" && listToken[i - 1].Value == "string")
+                    {
+                        adresse = CalculAdresse(listToken, dict, i - 1);
+                        dgvSymbolTable.Rows.Add(listToken[i].Value.ToString(), listToken[i - 1].Value.ToString(), TrouverTailleTypeString(listToken, dict, i - 1), adresse.ToString());
+                    }
+                    else if (listToken[i - 1].Type == "Declaration" && listToken[i].Type == "Identificateur")
+                    {
+                        adresse = CalculAdresse(listToken, dict, i - 1);
+                        dgvSymbolTable.Rows.Add(listToken[i].Value.ToString(), listToken[i - 1].Value.ToString(), TrouverTailleType(listToken[i - 1], dict), adresse.ToString());
+                    }
                 }
             }
         }
 
+        // Sert à calculer l'adresse des identificateurs pour la table de symboles
         public int CalculAdresse(List<Token> listToken, Dictionary<string, int> dict, int i)
         {
             if (first)
@@ -127,6 +134,22 @@ namespace tp1_Vcote_Pturcotte
             }
         }
 
+        // Sert à vérifier qu'un token de type identificateur non précédé d'un token de type declaration existe dans la table des symboles
+        bool VerifierIdentificateurExistant(List<Token> listToken, string identificateur)
+        {
+            foreach(DataGridViewRow row in dgvSymbolTable.Rows)
+            {
+                if (row.Cells[0].Value.Equals(identificateur))
+                {
+                    adresse = adresse + Convert.ToInt32(row.Cells[2].Value.ToString());
+                    dgvSymbolTable.Rows.Add(identificateur, row.Cells[1].Value.ToString(), row.Cells[2].Value.ToString(), adresse.ToString());
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Trouver la taille du type en byte à partir du dictionnaire
         public int TrouverTailleType(Token token, Dictionary<string, int> dict)
         {
             string tokenType = token.Value.ToString();
@@ -141,6 +164,7 @@ namespace tp1_Vcote_Pturcotte
             return tailleType;
         }
 
+        // Trouver la taille en byte de la string
         public int TrouverTailleTypeString(List<Token> listToken, Dictionary<string, int> dict, int i)
         {
             string tokenType = listToken[i].Value.ToString();
@@ -155,7 +179,7 @@ namespace tp1_Vcote_Pturcotte
             return tailleTypeString;
         }
 
-
+        // Afficher les erreurs
         public void ShowError(string pErreur)
         {
             lbErreurs.Items.Add(pErreur);

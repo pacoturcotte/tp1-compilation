@@ -10,27 +10,19 @@ namespace tp1_Vcote_Pturcotte
     // Cette classe permet de représenter la position du Token dans le fichier C# à lire
     public class TokenPosition
     {
-        // Position du token sur la ligne de texte où il est trouvé
-      //  public int Colonne { get; set; }
-
+      
         // Index du token dans le fichier C#
         public int Index { get; set; }
-
-        // Ligne où le token a été trouvé dans le fichier C#
-      //  public int Ligne { get; set; }
 
         // Constructeur de la position du Token
         internal TokenPosition(int index)
         {
             Index = index;
-         //   Ligne = ligne;
-         //   Colonne = colonne;
         }
 
         // Retourne la position d'un Token
         public override string ToString()
         {
-            // return $"Position du Token: Ligne: {Ligne} | Colonne: {Colonne} | Index: {Index}";
             return $"Index du token: {Index}";
         }
     }

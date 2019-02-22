@@ -35,7 +35,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvSymbolTable = new System.Windows.Forms.DataGridView();
-            this.identicateur = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.identificateur = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.size = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.adress = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -111,7 +111,7 @@
             this.dgvSymbolTable.AllowUserToDeleteRows = false;
             this.dgvSymbolTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSymbolTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.identicateur,
+            this.identificateur,
             this.type,
             this.size,
             this.adress});
@@ -120,11 +120,11 @@
             this.dgvSymbolTable.Size = new System.Drawing.Size(445, 282);
             this.dgvSymbolTable.TabIndex = 0;
             // 
-            // identicateur
+            // identificateur
             // 
-            this.identicateur.HeaderText = "Identificateur";
-            this.identicateur.Name = "identicateur";
-            this.identicateur.ReadOnly = true;
+            this.identificateur.HeaderText = "Identificateur";
+            this.identificateur.Name = "identificateur";
+            this.identificateur.ReadOnly = true;
             // 
             // type
             // 
@@ -174,7 +174,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dgvSymbolTable;
-        private System.Windows.Forms.DataGridViewTextBoxColumn identicateur;
+        private System.Windows.Forms.DataGridViewTextBoxColumn identificateur;
         private System.Windows.Forms.DataGridViewTextBoxColumn type;
         private System.Windows.Forms.DataGridViewTextBoxColumn size;
         private System.Windows.Forms.DataGridViewTextBoxColumn adress;
