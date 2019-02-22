@@ -46,106 +46,88 @@ namespace tp1_Vcote_Pturcotte
 
         public IEnumerable<Token> Tokenize(string source, bool ignoreWhitespace = false)
         {
+
+
             int index = 0;
             int line = 1;
             int column = 0;
-            var oldMatch = "";
-            while (index < source.Length)
+            // string[] splited = source.Split(';', ' ');
+            char[] delimiters = new char[] {' ', '\n', '\r' };
+            List<string> splited = source.Split(delimiters, StringSplitOptions.RemoveEmptyEntries).ToList();
+            var i = 0;
+            while (i < splited.Count)
             {
                 TokenDefinition matchedDefinition = null;
                 int matchLength = 0;
 
                 foreach (var rule in _definitions)
                 {
-                    var match = rule.Regex.Match(source, index);
+                    string strToTest = splited[i];
 
-                    if (rule.Type == "Identificateur" &&_definitions[5].Regex.Match(source, index+1).Value != "")
+                    if (strToTest.Length > 1 && strToTest[strToTest.Length - 1].Equals(';'))
                     {
-                        break;
+                        splited[i] = (splited[i].Substring(0, splited[i].Length - 1));
+                        splited.Insert(i+1, ";");
                     }
-
-                    //CODE DLA MOR KITU
-                 //   if (rule.Type == "Identificateur")
-                 //   {
-                 //       bool result = true;
-                 //       string strToTest = "";
-                 //       int indexTempo = 1;
-                 //       var previousVal = source.Substring(index, indexTempo);
-                 //       while (result)
-                 //       {
-                 //           //var value = source.Substring(index, matchLength);
-                 //           strToTest = source.Substring(index, indexTempo);
-                 //           if ((previousVal != "")/* && (_definitions[1].Regex.Match(strToTest)).Value != previousVal*/)
-                 //           {
-                 //               matchedDefinition = rule;
-                 //               matchLength = match.Length;
-                 //               previousVal = _definitions[1].Regex.Match(strToTest).Value;
-                 //               //result = false;
-                 //           }
-                 //           else
-                 //           {
-                 //               result = false;
-                 //           }
-                 //           indexTempo++;
-                 //       }
-                 //   }
-                    
-
-
-
-
-
-
-                    if (match.Success && match.Index - index == 0 && match.Length > matchLength)
+                    var match = rule.Regex.Match(splited[i]);
+                    if (match.Success)
                     {
                         matchedDefinition = rule;
-                        matchLength = match.Length;
-                        oldMatch = match.Value;
+                        matchLength = match.Length +1;
+                        if (rule.Type == "Terminaux")
+                        {
+                            matchLength--;
+                        }
                         break;
                     }
-                    
                 }
 
                 if (matchedDefinition == null)
                 {
                     FrmCompilateur frmTemp = (FrmCompilateur)FrmCompilateur;
-                    frmTemp.ShowError("Erreur à l'index " + index + ", ligne " + line + ", colonne " + column + ", châine en conflit : " + source[index]);
+                    frmTemp.ShowError("Erreur à l'index " + index + ", châine en conflit : " + splited[i]);
                     index++;
                 }
+                else
+                {
+                    yield return new Token(matchedDefinition.Type, splited[i], new TokenPosition(index));
+                }
 
+                index += matchLength;
                 //if (matchedDefinition == null)
                 //    throw new UnrecognizedTokenException(source[index], new TokenPosition(index, line, column),
                 //        $"Unrecognized symbol '{source[index]}' at index {index} (line {line}, column {column})");
 
-                var value = source.Substring(index, matchLength);
-             
-             if (matchedDefinition != null && !matchedDefinition.IsIgnored)
-                 yield return new Token(matchedDefinition.Type, value, new TokenPosition(index, line, column));
-             
-              var whitespace = _whiteSpace.Match(source, index + matchLength);
-             
-              if (whitespace.Success && whitespace.Length > 0)
-              {
-                  if (!ignoreWhitespace)
-                      yield return new Token("Whitespace", whitespace.Value, new TokenPosition(whitespace.Index, line, column + matchLength));
-             
-                  matchLength += whitespace.Length;
-                  var newLines = whitespace.Groups["NewLine"];
-                  if (newLines.Success)
-                  {
-                      line += newLines.Captures.Count;
-                      column = whitespace.Length - (whitespace.Value.LastIndexOf(newLines.Value) + 1);
-                  }
-                  else
-                      column += matchLength;
-              }
-              else
-                  column += matchLength;
-             
-              index += matchLength;
+          //     var value = source.Substring(index, matchLength);
+          //  
+          //  if (matchedDefinition != null && !matchedDefinition.IsIgnored)
+          //      yield return new Token(matchedDefinition.Type, value, new TokenPosition(index, line, column));
+          //  
+          //   var whitespace = _whiteSpace.Match(source, index + matchLength);
+          //  
+          //   if (whitespace.Success && whitespace.Length > 0)
+          //   {
+          //       if (!ignoreWhitespace)
+          //           yield return new Token("Whitespace", whitespace.Value, new TokenPosition(whitespace.Index, line, column + matchLength));
+          //  
+          //       matchLength += whitespace.Length;
+          //       var newLines = whitespace.Groups["NewLine"];
+          //       if (newLines.Success)
+          //       {
+          //           line += newLines.Captures.Count;
+          //           column = whitespace.Length - (whitespace.Value.LastIndexOf(newLines.Value) + 1);
+          //       }
+          //       else
+          //           column += matchLength;
+          //   }
+          //   else
+          //       column += matchLength;
+          //  
+          //   index += matchLength;
+                i++;
             }
 
-            yield return new Token(EoF, null, new TokenPosition(index, line, column));
+            yield return new Token(EoF, null, new TokenPosition(index));
         }
     }
 }

@@ -60,7 +60,7 @@ namespace tp1_Vcote_Pturcotte
 
         private void btnCompiler_Click(object sender, EventArgs e)
         {
-            Token lastToken = new Token("new", "new", new TokenPosition(0, 0, 0));
+            Token lastToken = new Token("new", "new", new TokenPosition(0));
             Dictionary<string, int> dictTableSymbole = new Dictionary<string, int>();
             dictTableSymbole.Add("int", 4);
             dictTableSymbole.Add("float", 4);
@@ -76,20 +76,19 @@ namespace tp1_Vcote_Pturcotte
             lexer.AddDefinition(new TokenDefinition(@"for", "Boucle"));
             lexer.AddDefinition(new TokenDefinition(@"(true|false|TRUE|FALSE)", "Booleen"));
             lexer.AddDefinition(new TokenDefinition(@"==|!=|<|>|=", "Operateur"));
-            lexer.AddDefinition(new TokenDefinition(@"[0-9]+", "Entier"));
-            lexer.AddDefinition(new TokenDefinition(@"[-+]?([0-9]+|[0-9]*\.[0-9]+)", "Reel"));
+            lexer.AddDefinition(new TokenDefinition(@"^[0-9]+", "Entier"));
+            lexer.AddDefinition(new TokenDefinition(@"^[-+]?([0-9]+|[0-9]*\.[0-9]+)", "Reel"));
             lexer.AddDefinition(new TokenDefinition(@"\"".*\""", "Chaine de caracteres"));
             lexer.AddDefinition(new TokenDefinition(@"'\.?'", "Caractere"));        
             lexer.AddDefinition(new TokenDefinition(@"(;|\(|\)|\{|\})", "Terminaux"));
-            lexer.AddDefinition(new TokenDefinition(@"[a-zA-Z]\w*[a-zA-Z]|[a-zA-Z]", "Identificateurr"));
+            lexer.AddDefinition(new TokenDefinition(@"^[a-zA-Z]\w*[a-zA-Z]$|^[a-zA-Z]$", "Identificateur"));
 
             foreach (var token in lexer.Tokenize(fileContent, true))
             {
-                if (lastToken.Type == "Declaration" && token.Type == "Identificateurr")
+                if (lastToken.Type == "Declaration" && token.Type == "Identificateur")
                 {
                     adresse = CalculAdresse(lastToken, dictTableSymbole);
                     
-                    // TODO : créer list box pour la table des symboles
                     dgvSymbolTabel.Rows.Add(token.Value.ToString(), lastToken.Value.ToString(), TrouverTailleType(lastToken, dictTableSymbole), adresse.ToString());
                 }             
                 lbErreurs.Items.Add(token.ToString() + "\n");
