@@ -71,7 +71,7 @@ namespace tp1_Vcote_Pturcotte
             // Ajout des définitions dans le Lexer
             FrmCompilateur frmCompilateur = this;
             var lexer = new Lexer(frmCompilateur);
-            lexer.AddDefinition(new TokenDefinition(@"(int|float|char|string|bool)", "Declaration"));
+            lexer.AddDefinition(new TokenDefinition(@"(^int$|^float$|^char$|^string$|^bool$)", "Declaration"));
             lexer.AddDefinition(new TokenDefinition(@"if", "Condition"));
             lexer.AddDefinition(new TokenDefinition(@"for", "Boucle"));
             lexer.AddDefinition(new TokenDefinition(@"(true|false|TRUE|FALSE)", "Booleen"));
