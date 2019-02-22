@@ -60,13 +60,14 @@ namespace tp1_Vcote_Pturcotte
 
         private void btnCompiler_Click(object sender, EventArgs e)
         {
-            Token lastToken = new Token("new", "new", new TokenPosition(0));
+            List<Token> tokenList = new List<Token>();
+
             Dictionary<string, int> dictTableSymbole = new Dictionary<string, int>();
             dictTableSymbole.Add("int", 4);
             dictTableSymbole.Add("float", 4);
-            dictTableSymbole.Add("string", 2);
-            dictTableSymbole.Add("char", 1);
-            dictTableSymbole.Add("bool", 2);
+            dictTableSymbole.Add("string", 2);  // sera multipliée par la longueur de la string 
+            dictTableSymbole.Add("char", 2);
+            dictTableSymbole.Add("bool", 1);
 
             // Ajout des définitions dans le Lexer
             FrmCompilateur frmCompilateur = this;
@@ -78,25 +79,38 @@ namespace tp1_Vcote_Pturcotte
             lexer.AddDefinition(new TokenDefinition(@"==|!=|<|>|=", "Operateur"));
             lexer.AddDefinition(new TokenDefinition(@"^[0-9]+", "Entier"));
             lexer.AddDefinition(new TokenDefinition(@"^[-+]?([0-9]+|[0-9]*\.[0-9]+)", "Reel"));
-            lexer.AddDefinition(new TokenDefinition(@"\"".*\""", "Chaine de caracteres"));
+            lexer.AddDefinition(new TokenDefinition(@"^\"".*\""$", "Chaine de caracteres"));
             lexer.AddDefinition(new TokenDefinition(@"'\.?'", "Caractere"));        
             lexer.AddDefinition(new TokenDefinition(@"(;|\(|\)|\{|\})", "Terminaux"));
             lexer.AddDefinition(new TokenDefinition(@"^[a-zA-Z]\w*[a-zA-Z]$|^[a-zA-Z]$", "Identificateur"));
 
+            // Affichage de l'analyse lexicale
             foreach (var token in lexer.Tokenize(fileContent, true))
+            {          
+                lbErreurs.Items.Add(token.ToString() + "\n");           
+                tokenList.Add(token);
+            }
+            RemplirTableSymbole(tokenList, dictTableSymbole);
+        }
+
+        public void RemplirTableSymbole(List<Token> listToken, Dictionary<string, int> dict)
+        {
+            for (int i = 1; i<=listToken.Count(); i++)
             {
-                if (lastToken.Type == "Declaration" && token.Type == "Identificateur")
+                if (listToken[i-1].Type == "Declaration" && listToken[i].Type == "Identificateur" && listToken[i-1].Value == "string")
                 {
-                    adresse = CalculAdresse(lastToken, dictTableSymbole);
-                    
-                    dgvSymbolTabel.Rows.Add(token.Value.ToString(), lastToken.Value.ToString(), TrouverTailleType(lastToken, dictTableSymbole), adresse.ToString());
-                }             
-                lbErreurs.Items.Add(token.ToString() + "\n");
-                lastToken = token;
+                    adresse = CalculAdresse(listToken, dict, i - 1);
+                    dgvSymbolTable.Rows.Add(listToken[i].Value.ToString(), listToken[i - 1].Value.ToString(), TrouverTailleTypeString(listToken, dict, i-1), adresse.ToString());
+                }
+                else if (listToken[i - 1].Type == "Declaration" && listToken[i].Type == "Identificateur")
+                {
+                    adresse = CalculAdresse(listToken, dict, i - 1);
+                    dgvSymbolTable.Rows.Add(listToken[i].Value.ToString(), listToken[i - 1].Value.ToString(), TrouverTailleType(listToken[i-1], dict), adresse.ToString());
+                }
             }
         }
 
-        public int CalculAdresse(Token token, Dictionary<string,int> dict)
+        public int CalculAdresse(List<Token> listToken, Dictionary<string, int> dict, int i)
         {
             if (first)
             {
@@ -105,7 +119,10 @@ namespace tp1_Vcote_Pturcotte
             }
             else
             {
-                adresse += TrouverTailleType(token, dict);
+                if (listToken[i].Value.ToString() == "string")
+                    adresse += TrouverTailleTypeString(listToken, dict, i);
+                else
+                    adresse += TrouverTailleType(listToken[i], dict);
                 return adresse;
             }
         }
@@ -123,6 +140,21 @@ namespace tp1_Vcote_Pturcotte
             }
             return tailleType;
         }
+
+        public int TrouverTailleTypeString(List<Token> listToken, Dictionary<string, int> dict, int i)
+        {
+            string tokenType = listToken[i].Value.ToString();
+            int tailleTypeString = 0;
+            foreach (KeyValuePair<string, int> item in dict)
+            {
+                if (item.Key == tokenType)
+                {
+                    tailleTypeString = item.Value * (listToken[i+3].Value.ToString().Length - 2);
+                }
+            }
+            return tailleTypeString;
+        }
+
 
         public void ShowError(string pErreur)
         {

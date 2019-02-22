@@ -34,14 +34,14 @@
             this.btnCompiler = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dgvSymbolTabel = new System.Windows.Forms.DataGridView();
+            this.dgvSymbolTable = new System.Windows.Forms.DataGridView();
             this.identicateur = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.size = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.adress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSymbolTabel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSymbolTable)).BeginInit();
             this.SuspendLayout();
             // 
             // lblNomFichier
@@ -97,7 +97,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.dgvSymbolTabel);
+            this.groupBox2.Controls.Add(this.dgvSymbolTable);
             this.groupBox2.Location = new System.Drawing.Point(706, 75);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(501, 333);
@@ -105,20 +105,20 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Table des symboles";
             // 
-            // dgvSymbolTabel
+            // dgvSymbolTable
             // 
-            this.dgvSymbolTabel.AllowUserToAddRows = false;
-            this.dgvSymbolTabel.AllowUserToDeleteRows = false;
-            this.dgvSymbolTabel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSymbolTabel.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvSymbolTable.AllowUserToAddRows = false;
+            this.dgvSymbolTable.AllowUserToDeleteRows = false;
+            this.dgvSymbolTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSymbolTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.identicateur,
             this.type,
             this.size,
             this.adress});
-            this.dgvSymbolTabel.Location = new System.Drawing.Point(27, 20);
-            this.dgvSymbolTabel.Name = "dgvSymbolTabel";
-            this.dgvSymbolTabel.Size = new System.Drawing.Size(445, 282);
-            this.dgvSymbolTabel.TabIndex = 0;
+            this.dgvSymbolTable.Location = new System.Drawing.Point(27, 20);
+            this.dgvSymbolTable.Name = "dgvSymbolTable";
+            this.dgvSymbolTable.Size = new System.Drawing.Size(445, 282);
+            this.dgvSymbolTable.TabIndex = 0;
             // 
             // identicateur
             // 
@@ -160,7 +160,7 @@
             this.Load += new System.EventHandler(this.FrmCompilateur_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSymbolTabel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSymbolTable)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -173,7 +173,7 @@
         private System.Windows.Forms.Button btnCompiler;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DataGridView dgvSymbolTabel;
+        private System.Windows.Forms.DataGridView dgvSymbolTable;
         private System.Windows.Forms.DataGridViewTextBoxColumn identicateur;
         private System.Windows.Forms.DataGridViewTextBoxColumn type;
         private System.Windows.Forms.DataGridViewTextBoxColumn size;
